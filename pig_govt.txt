@@ -1,0 +1,26 @@
+1. Find the number of students who scored less than 5(50%). 
+a = load '/home/jayant/pig_gov.txt' Using PigStorage(',') as (Name: chararray ,Col_Undertaken: chararray, Dob: chararray, Stream: chararray, Grade:float ,State: chararray,City: chararray);
+b = filter a by Grade<5;
+c = foreach b generate COUNT(*);
+Store c into '/home/jayant/dull';
+
+2. List the name of students who are from Alaska.
+a = load '/home/jayant/pig_gov.txt' Using PigStorage(',') as (Name: chararray ,Col_Undertaken: chararray, Dob: chararray, Stream: chararray,Grade:float ,State: chararray,City: chararray);
+b = filter a by State == 'alaska';
+c = foreach b generate Name;
+store c into '/home/jayant/alaska';
+
+3. How many government collages are there in Alabama?
+a = load '/home/jayant/pig_gov.txt' Using PigStorage(',') as (Name: chararray ,Col_Undertaken: chararray, Dob: chararray, Stream: chararray, Grade:float ,State: chararray,City: chararray);
+b = filter a by State == 'alabama' and Col_Undertaken == 'goverenment';
+c = group b by Col_Undertaken;
+d = foreach c generate COUNT(b);
+store d into '/home/jayant/gov';
+
+4. List the name of students who are from Oregon and persuing BE.
+a = load '/home/jayant/pig_gov.txt' Using PigStorage(',') as (Name: chararray ,Col_Undertaken: chararray, Dob: chararray, Stream: chararray, Grade:float ,State: chararray,City: chararray);
+b = filter a by State == 'oregon' and Stream == 'BE';
+c = foreach b generate Name;
+store d into '/home/jayant/name';
+
+
